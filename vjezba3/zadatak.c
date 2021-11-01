@@ -352,7 +352,7 @@ int SortList(Position p)
         {
             if (h1->birthYear > h2->birthYear)
             { 
-                Swap(ptr1, ptr1->next);
+                Swap(h1, h1->next);
                 temp=1;
             }
             h1=h1->next;
