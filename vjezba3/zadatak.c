@@ -92,7 +92,7 @@ int main(int argc, char** argv)
 			}
             case 6:
             {
-                
+
                 break;
             }
             case 7:
@@ -102,17 +102,17 @@ int main(int argc, char** argv)
             }
             case 8:
             {
-                
+                SortList(p);
                 break;
             }
             case 9:
             {
-                
+                PrintInFile(p);
                 break;
             }
             case 10:
             {
-                
+                ReadFromFile(p);
                 break;
             }
             case 11:
