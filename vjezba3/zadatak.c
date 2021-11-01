@@ -28,6 +28,7 @@ int InsertBefore(Position position, Position newPerson, char* surname);
 int SortList(Position p);
 int PrintInFile(Position p);
 int ReadFromFile(Position p);
+int Swap(Position p, Position q);
 
 
 int main(int argc, char** argv)
@@ -330,6 +331,46 @@ int ReadFromFile(Position p)
 	}
 
     fclose(f);
+
+    return EXIT_SUCCESS;
+}
+
+int SortList(Position p)
+{
+    int temp=0, i=0;
+    Position h1=NULL, h2=NULL;
+  
+    if (p==NULL)
+        return;
+  
+    do
+    {
+        temp=0;
+        h1=p;
+  
+        while (h1->next!=h2)
+        {
+            if (h1->birthYear > h2->birthYear)
+            { 
+                Swap(ptr1, ptr1->next);
+                temp=1;
+            }
+            h1=h1->next;
+        }
+        h2=h1;
+    }
+    while (temp);
+
+    return EXIT_SUCCESS;
+}
+
+int Swap(Position p, Position q)
+{
+    Position temp=p;
+    p=q;
+    p->next=q->next;
+    q->next=p;
+    q=temp;
 
     return EXIT_SUCCESS;
 }
