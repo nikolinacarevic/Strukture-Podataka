@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 			{
                 printf("surname: ");
 				scanf("%s", surname);
-				DeletePerson(p, surname);
+				Delete(p, surname);
                 break;
 			}
             case 6:
