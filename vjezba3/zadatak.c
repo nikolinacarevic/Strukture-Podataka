@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 				scanf("%s", sur);
                 printf("new person info(name surname birth_year): ");
                 scanf(" %s %s %d",name,surname,&birthYear);
-                Position new=CreatePerson(name,surname,&birthYear);
+                Position new=CreatePerson(name,surname,birthYear);
 				InsertAfter(p,new,surname);
                 break;
             }
@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 				scanf("%s", sur);
                 printf("new person info(name surname birth_year): ");
                 scanf(" %s %s %d",name,surname,&birthYear);
-                Position new=CreatePerson(name,surname,&birthYear);
+                Position new=CreatePerson(name,surname,birthYear);
 				InsertBefore(p,new,surname);
                 break;
             }
