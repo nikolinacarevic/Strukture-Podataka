@@ -25,7 +25,7 @@ int Delete(Position head, char* surname);
 
 int InsertAfter(Position position, Position newPerson, char* surname);
 int InsertBefore(Position position, Position newPerson, char* surname);
-int SortList(Position p, char* name, char* surname, int birthYear);
+int SortList(Position p);
 int PrintInFile(Position p);
 int ReadFromFile(Position p);
 
@@ -33,7 +33,7 @@ int ReadFromFile(Position p);
 int main(int argc, char** argv)
 {
     int temp=1,optn, birthYear;
-    char name[MAX_SIZE],surname[MAX_SIZE];
+    char name[MAX_SIZE],surname[MAX_SIZE], sur[MAX_SIZE];
     Person Head = { .next = NULL, .name= {0}, .surname= {0}, .birthYear = 0 };
     Position q=NULL;
 
@@ -92,12 +92,22 @@ int main(int argc, char** argv)
 			}
             case 6:
             {
-
+                printf("surname of the person after whom you want to add a new person: ");
+				scanf("%s", sur);
+                printf("new person info(name surname birth_year): ");
+                scanf(" %s %s %d",name,surname,&birthYear);
+                Position new=CreatePerson(name,surname,&birthYear);
+				InsertAfter(p,new,surname);
                 break;
             }
             case 7:
             {
-                
+                printf("surname of the person before whom you want to add a new person: ");
+				scanf("%s", sur);
+                printf("new person info(name surname birth_year): ");
+                scanf(" %s %s %d",name,surname,&birthYear);
+                Position new=CreatePerson(name,surname,&birthYear);
+				InsertBefore(p,new,surname);
                 break;
             }
             case 8:
@@ -321,10 +331,5 @@ int ReadFromFile(Position p)
 
     fclose(f);
 
-    return EXIT_SUCCESS;
-}
-
-int SortList(Position p, char* name, char* surname, int birthYear)
-{
     return EXIT_SUCCESS;
 }
