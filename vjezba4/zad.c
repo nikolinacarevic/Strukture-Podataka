@@ -159,3 +159,23 @@ int ZbrajanjePolinoma(Pozicija head1, Pozicija head2, Pozicija Zbroj)
 
 	return 0;
 }
+
+int MnozenjePolinoma(Pozicija head1, Pozicija head2, Pozicija Produkt)
+{
+	Pozicija temp1 = head1->next;
+	Pozicija temp2 = head2->next;
+
+	while (temp1 != NULL)
+	{
+		while (temp2 != NULL)
+		{
+            Pozicija Novi;
+			StvaranjeElementa(temp1->koeficijent * temp2->koeficijent, temp1->eksponent + temp2->eksponent, Novi);
+			UnesiSortirano(Produkt, Novi);
+			temp2 = temp2->next;
+		}
+		temp1 = temp1->next;
+	}
+
+	return 0;
+}
