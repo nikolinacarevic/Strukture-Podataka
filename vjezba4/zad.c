@@ -171,12 +171,12 @@ int MnozenjePolinoma(Pozicija head1, Pozicija head2, Pozicija Produkt)
 {
 	Pozicija temp1 = head1->next;
 	Pozicija temp2 = head2->next;
+	Pozicija Novi=NULL;
 
 	while (temp1 != NULL)
 	{
 		while (temp2 != NULL)
 		{
-            Pozicija Novi;
 			StvaranjeElementa(temp1->koeficijent * temp2->koeficijent, temp1->eksponent + temp2->eksponent, Novi);
 			UnesiSortirano(Produkt, Novi);
 			temp2 = temp2->next;
