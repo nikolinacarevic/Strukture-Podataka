@@ -91,3 +91,28 @@ int StvaranjeElementa(int koeficijent, int eksponent, Pozicija P)
 
 	return 0;
 }
+
+int UnesiSortirano(Pozicija head, Pozicija NoviEl)
+{
+	Pozicija temp = head;
+
+	while (temp->next != NULL && temp->next->eksponent < NoviEl->eksponent)
+	{
+		temp = temp->next;
+	}
+
+	if (temp->next == NULL || temp->next->eksponent != NoviEl->eksponent)
+	{
+		NoviEl->next = temp->next;
+		temp->next = NoviEl;
+	}
+	else
+	{
+		int ZbrojKoef = temp->next->koeficijent + NoviEl->koeficijent;
+		temp->next->koeficijent = ZbrojKoef;
+	}
+
+	free(temp);
+
+	return 0;
+}
