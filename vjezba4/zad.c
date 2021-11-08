@@ -37,12 +37,17 @@ int main()
 
     printf("1. polinom : ");
 	IspisPolinoma(&head1);
-	printf("\n");
 
 	printf("2. polinom : ");
 	IspisPolinoma(&head2);
-	printf("\n");
 
+    ZbrajanjePolinoma(&head1, &head2, &Zbroj);
+	printf("Zbroj polinoma : \n");
+	IspisPolinoma(&Zbroj);
+	
+	MnozenjePolinoma(&head1, &head2, &Produkt);
+	printf("Produkt polinoma : \n");
+	IspisPolinoma(&Produkt);
 
 	return 0;
 }
@@ -135,6 +140,8 @@ int IspisPolinoma(Pozicija head)
 		printf("%d x^%d ", temp->koeficijent, temp->eksponent);
 		temp = temp->next;
 	}
+
+    printf("\n");
 
 	return 0;
 }
