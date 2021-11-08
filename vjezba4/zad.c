@@ -35,6 +35,15 @@ int main()
 
 	UnosIzDatoteke(&head1, &head2, imeDat);
 
+    printf("1. polinom : ");
+	IspisPolinoma(&head1);
+	printf("\n");
+
+	printf("2. polinom : ");
+	IspisPolinoma(&head2);
+	printf("\n");
+
+
 	return 0;
 }
 
@@ -113,6 +122,19 @@ int UnesiSortirano(Pozicija head, Pozicija NoviEl)
 	}
 
 	free(temp);
+
+	return 0;
+}
+
+int IspisPolinoma(Pozicija head)
+{
+	Pozicija temp = head->next;
+
+	while (temp != NULL)
+	{
+		printf("%d x^%d ", temp->koeficijent, temp->eksponent);
+		temp = temp->next;
+	}
 
 	return 0;
 }
