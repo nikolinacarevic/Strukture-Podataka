@@ -138,3 +138,24 @@ int IspisPolinoma(Pozicija head)
 
 	return 0;
 }
+
+int ZbrajanjePolinoma(Pozicija head1, Pozicija head2, Pozicija Zbroj)
+{
+	Pozicija temp = head1->next;
+
+	while (temp != NULL)
+	{
+		UnesiSortirano(Zbroj, temp);
+		temp = temp->next;
+	}
+
+	temp = head2->next;
+
+	while (temp != NULL)
+	{
+		UnesiSortirano(Zbroj, temp);
+		temp = temp->next;
+	}
+
+	return 0;
+}
