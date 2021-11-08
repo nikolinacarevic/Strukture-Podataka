@@ -77,3 +77,17 @@ int UnosUListu(Pozicija head, char* buffer)
 	
 	return 0;
 }
+
+int StvaranjeElementa(int koeficijent, int eksponent, Pozicija P)
+{
+	P = (Pozicija)malloc(sizeof(struct Element));
+	if (!P)
+	{
+		printf("Neuspješna alokacija memorije!\n");
+		return -1;
+	}
+	P->koeficijent = koeficijent;
+	P->eksponent = eksponent;
+
+	return 0;
+}
