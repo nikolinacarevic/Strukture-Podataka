@@ -12,7 +12,7 @@ struct Cvor {
 Stablo UnosNovogElementa(Stablo trenutni, Stablo NoviEl);
 Stablo StvoriNoviElement(int x);
 int BrisiElement(Stablo S, int x);
-int PronadiElement(Stablo S, int x);
+Stablo PronadiElement(Stablo S, int x);
 int IspisStabla(Stablo S);
 int Inorder(Stablo S);
 int Preorder(Stablo S);
@@ -27,7 +27,7 @@ int main()
 
 	while (1)
 	{
-		printf("Odaberite sto zelite raditi s binarnim stablom:\n1-Unos novog elementa\n2-Ispis stabla\n3-Brisanje odredenog elementa\n4-Pronalazak odredenog elementa\n5-Kraj\n");
+		printf("\nOdaberite sto zelite raditi s binarnim stablom:\n1-Unos novog elementa\n2-Ispis stabla\n3-Brisanje odredenog elementa\n4-Pronalazak odredenog elementa\n5-Kraj\n");
 		if (!scanf("%d", &odabir)) printf("Greska!");
 		else
 		{
@@ -106,7 +106,7 @@ Stablo StvoriNoviElement(int x)
 int IspisStabla(Stablo S)
 {
 	int odabir;
-	printf("Odaberite nacin ispisa: \n1-Inorder\n2-Preorder\n3-Postorder\n4-Level Order\n");
+	printf("\nOdaberite nacin ispisa: \n1-Inorder\n2-Preorder\n3-Postorder\n4-Level Order\n");
 	if (!scanf("%d", &odabir)) printf("Pogresan unos.\n");
 	else
 	{
@@ -177,4 +177,21 @@ int LevelOrder(Stablo S)
 
 
 	return 0;
+}
+
+int BrisiElement(Stablo S, int x)
+{
+	Stablo ElZaBrisanje = PronadiElement(S, x);
+
+	return 0;
+
+}
+
+Stablo PronadiElement(Stablo S, int x)
+{
+	if (S == NULL) printf("Element nije pronaden.");
+	if (x == S->broj) return S;
+	else if (x > S->broj) S = PronadiElement(S->desno, x);
+	else S = PronadiElement(S->lijevo, x);
+	return S;
 }
