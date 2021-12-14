@@ -3,25 +3,25 @@
 #include <stdlib.h>
 
 typedef struct Cvor* Stablo;
-typedef struct Cvor {
+struct Cvor {
 	int broj;
 	Stablo lijevo;
 	Stablo desno;
 };
 
-int UnosNovogElementa(Stablo S, Stablo NoviEl);
+Stablo UnosNovogElementa(Stablo trenutni, Stablo NoviEl);
 Stablo StvoriNoviElement(int x);
 int BrisiElement(Stablo S, int x);
 int PronadiElement(Stablo S, int x);
 int IspisStabla(Stablo S);
-Stablo Inorder();
-Stablo Preorder();
-Stablo Postorder();
-Stablo LevelOrder();
+int Inorder(Stablo S);
+int Preorder(Stablo S);
+int Postorder(Stablo S);
+int LevelOrder(Stablo S);
 
 int main()
 {
-	int odabir,br;
+	int odabir, br;
 
 	Stablo B = NULL;
 
@@ -39,7 +39,7 @@ int main()
 				if (!scanf("%d", &br)) printf("Pogreška kod unosa novog elementa!\n");
 				else {
 					Stablo Novi = StvoriNoviElement(br);
-					B=UnosNovogElementa(B, Novi);
+					B = UnosNovogElementa(B, Novi);
 				}
 				break;
 			}
@@ -78,7 +78,7 @@ int main()
 	return 0;
 }
 
-int UnosNovogElementa(Stablo trenutni, Stablo NoviEl)
+Stablo UnosNovogElementa(Stablo trenutni, Stablo NoviEl)
 {
 	if (trenutni == NULL) return NoviEl;
 	if (trenutni->broj < NoviEl->broj) trenutni->desno = UnosNovogElementa(trenutni->desno, NoviEl);
@@ -99,5 +99,82 @@ Stablo StvoriNoviElement(int x)
 		S->lijevo = NULL;
 		return S;
 	}
-	return -1;
+	return NULL;
+
+}
+
+int IspisStabla(Stablo S)
+{
+	int odabir;
+	printf("Odaberite nacin ispisa: \n1-Inorder\n2-Preorder\n3-Postorder\n4-Level Order\n");
+	if (!scanf("%d", &odabir)) printf("Pogresan unos.\n");
+	else
+	{
+		int i = 1;
+		while(i)
+		{
+			switch (odabir)
+			{
+			case 1:
+			{
+				Inorder(S); i = 0;
+				break;
+			}
+			case 2:
+			{
+				Preorder(S); i = 0;
+				break;
+			}
+			case 3:
+			{
+				Postorder(S); i = 0;
+				break;
+			}
+			case 4:
+			{
+				LevelOrder(S); i = 0;
+				break;
+			}
+			default:
+			{
+				printf("Krivi odabir. Pokusaj ponovno.\n");
+				i = 1;
+				break;
+			}
+			}
+		}
+	}
+	return 0;
+}
+
+int Inorder(Stablo S)
+{
+	if (S == NULL) return 0;
+	Inorder(S->lijevo);
+	printf("%d ", S->broj);
+	Inorder(S->desno);
+	return 0;
+}
+
+int Preorder(Stablo S)
+{
+	printf("%d ", S->broj);
+	Inorder(S->lijevo);
+	Inorder(S->desno);
+	return 0;
+}
+
+int Postorder(Stablo S)
+{
+	Inorder(S->lijevo);
+	Inorder(S->desno);
+	printf("%d ", S->broj);
+	return 0;
+}
+
+int LevelOrder(Stablo S)
+{
+
+
+	return 0;
 }
