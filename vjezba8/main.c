@@ -39,7 +39,7 @@ int main()
 				if (!scanf("%d", &br)) printf("Pogreška kod unosa novog elementa!\n");
 				else {
 					Stablo Novi = StvoriNoviElement(br);
-					UnosNovogElementa(B, Novi);
+					B=UnosNovogElementa(B, Novi);
 				}
 				break;
 			}
@@ -78,32 +78,26 @@ int main()
 	return 0;
 }
 
-int UnosNovogElementa(Stablo S, Stablo NoviEl)
+int UnosNovogElementa(Stablo trenutni, Stablo NoviEl)
 {
-	if (S == NULL) {
-		S = NoviEl; return 0;
-	}
-	Stablo temp;
-	temp = S;
-	while(temp)
-	{
-		if (NoviEl->broj > temp->broj) temp = temp->desno;
-		else if (NoviEl->broj < temp->broj) temp = temp->lijevo;
-		else { printf("Element vec postoji!\n"); return 0; }
-	}
-	temp->broj = NoviEl->broj;
-	temp->desno = NULL;
-	temp->lijevo = NULL;
-
-	return 0;
+	if (trenutni == NULL) return NoviEl;
+	if (trenutni->broj < NoviEl->broj) trenutni->desno = UnosNovogElementa(trenutni->desno, NoviEl);
+	else if (trenutni->broj > NoviEl->broj) trenutni->lijevo = UnosNovogElementa(trenutni->lijevo, NoviEl);
+	else free(NoviEl);
+	return trenutni;
 }
 
 Stablo StvoriNoviElement(int x)
 {
 	Stablo S;
 	S = (Stablo)malloc(sizeof(struct Cvor));
-	S->broj = x;
-	S->desno = NULL;
-	S->lijevo = NULL;
-	return S;
+	if (S == NULL) perror("Greska kod alociranja memorije.\n");
+	else
+	{
+		S->broj = x;
+		S->desno = NULL;
+		S->lijevo = NULL;
+		return S;
+	}
+	return -1;
 }
