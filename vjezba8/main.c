@@ -12,7 +12,9 @@ struct Cvor {
 Stablo UnosNovogElementa(Stablo trenutni, Stablo NoviEl);
 Stablo StvoriNoviElement(int x);
 int BrisiElement(Stablo S, int x);
+Stablo NajmanjiLijevo(Stablo trenutni);
 Stablo PronadiElement(Stablo S, int x);
+int Zamjeni(Stablo P1, Stablo P2);
 int IspisStabla(Stablo S);
 int Inorder(Stablo S);
 int Preorder(Stablo S);
@@ -181,10 +183,33 @@ int LevelOrder(Stablo S)
 
 int BrisiElement(Stablo S, int x)
 {
-	Stablo ElZaBrisanje = PronadiElement(S, x);
-
+	Stablo element1 = PronadiElement(S, x);
+	Stablo element2 = NajmanjiLijevo(element1);
+	Zamjeni(element1, element2);
+	free(element2);
+	while (element1->lijevo != NULL)
+	{
+		element2 = NajmanjiLijevo(element1->lijevo);
+		Zamjeni(element1->lijevo, element2);
+		element1 = element1->lijevo;
+	}
 	return 0;
 
+}
+
+
+int Zamjeni(Stablo P1, Stablo P2)
+{
+	Stablo temp = P1;
+	P1 = P2;
+	P2 = temp;
+	return 0;
+}
+
+Stablo NajmanjiLijevo(Stablo trenutni)
+{
+	while (trenutni->lijevo != NULL) trenutni = trenutni->lijevo;
+	return trenutni;
 }
 
 Stablo PronadiElement(Stablo S, int x)
