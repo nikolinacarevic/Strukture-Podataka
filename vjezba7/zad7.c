@@ -23,12 +23,16 @@ Position CreateNewEl(char* name);
 Position FindElement(Position S);
 int Pop(StPozicija head, Position current);
 int Push(StPozicija head, StPozicija new);
+int Ispisi(Position S);
 
 
 int main()
 {
 	int odabir=0;
 	char naziv[MAX_SIZE] = { 0 };
+
+	struct Stog stog = { .direktorij = NULL, .next = NULL };
+	StPozicija stog2 = &stog;
 
 	Position ME;
 	ME = (Position)malloc(sizeof( struct Cvor));
@@ -60,7 +64,7 @@ int main()
 		}
 		case 3:
 		{
-			current = Pop(stog, current);
+			current = Pop(stog2, current);
 			break;
 		}
 		case 4:
@@ -146,4 +150,17 @@ int Push(StPozicija head, StPozicija new)
 Position FindElement(Position S)
 {
 	return NULL;
+}
+
+int Ispisi(Position S)
+{
+	Position temp = S->child;
+
+	while (temp)
+	{
+		printf("%s ", temp->name);
+		temp = temp->sibling;
+	}
+
+	return 0;
 }
