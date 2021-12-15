@@ -19,7 +19,7 @@ int IspisStabla(Stablo S);
 int Inorder(Stablo S);
 int Preorder(Stablo S);
 int Postorder(Stablo S);
-int LevelOrder(Stablo S);
+//int LevelOrder(Stablo S);
 
 int main()
 {
@@ -113,7 +113,7 @@ int IspisStabla(Stablo S)
 	else
 	{
 		int i = 1;
-		while(i)
+		while (i)
 		{
 			switch (odabir)
 			{
@@ -134,7 +134,7 @@ int IspisStabla(Stablo S)
 			}
 			case 4:
 			{
-				LevelOrder(S); i = 0;
+				//LevelOrder(S); i = 0;
 				break;
 			}
 			default:
@@ -174,12 +174,15 @@ int Postorder(Stablo S)
 	return 0;
 }
 
-int LevelOrder(Stablo S)
+/*int LevelOrder(Stablo S)
 {
-
+	//printf("%d ", S->broj);
+	if (S->lijevo != NULL) {
+		printf("%d ", S->lijevo->broj);  
+	}
 
 	return 0;
-}
+}*/
 
 int BrisiElement(Stablo S, int x)
 {
