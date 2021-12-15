@@ -12,10 +12,17 @@ typedef struct Cvor {
 	Position child;
 };
 
+typedef struct Stog* StPozicija;
+typedef struct Stog {
+	Position direktorij;
+	StPozicija next;
+};
+
 Position Insert(Position current, Position ne);
 Position CreateNewEl(char* name);
 Position FindElement(Position S);
-int Pop(double* destination, Position S);
+int Pop(StPozicija head, Position current);
+int Push(StPozicija head, StPozicija new);
 
 
 int main()
@@ -111,21 +118,29 @@ Position CreateNewEl(char* name)
 	return ne;
 }
 
-int Pop(char* destination, Position S)
+int Pop(StPozicija head, Position current)
 {
-	Position first = S->child;
-
+	StPozicija first = head->next;
+	Position temp = NULL;
 
 	if (!first)
 	{
-		perror("Perror!\n");
-		return -1;
+		perror("Nema roditelja!\n");
+		return current;
 	}
+	temp = first->direktorij;
+	head->next = first->next;
+	free(first);
+	
+	return 0;
+}
 
-	*destination = first->name;
-	DeleteAfter(S);
+int Push(StPozicija head, StPozicija new)
+{
+	new->next = head->next;
+	head->next = new;
 
-	return EXIT_SUCCESS;
+	return 0;
 }
 
 Position FindElement(Position S)
