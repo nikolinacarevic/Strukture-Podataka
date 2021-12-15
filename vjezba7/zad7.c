@@ -34,37 +34,44 @@ int main()
 	printf("Odaberite:\n1-md\n2-cd dir\n3-cd..\n4-dir\n5-izlaz\n");
 	if (!scanf("%d", &odabir)) printf("Pogresan unos!\n");
 
-	switch (odabir)
+	while (1)
 	{
-	case 1:
-	{
-		printf("Unesi naziv novog direktorija: ");
-		scanf("%s", naziv);
-		Position NoviElement(naziv);
-		current->child = Insert(current, NoviElement);
-		break;
-	}
-	case 2:
-	{
+		switch (odabir)
+		{
+		case 1:
+		{
+			printf("Unesi naziv novog direktorija: ");
+			scanf("%s", naziv);
+			Position NoviElement(naziv);
+			current->child = Insert(current, NoviElement);
+			break;
+		}
+		case 2: //cd dir
+		{
 
-		break;
-	}
-	case 3:
-	{
-		break;
-	}
-	case 4:
-	{
-		break;
-	}
-	case 5:
-	{
-		return 0;
-	}
-	default:
-	{
-		break;
-	}
+			break;
+		}
+		case 3:
+		{
+			current = Pop(stog, current);
+			break;
+		}
+		case 4:
+		{
+			printf("%s: \n", current->name);
+			Ispisi(current);
+			break;
+		}
+		case 5:
+		{
+			return 0;
+		}
+		default:
+		{
+			printf("Pogresan odabir! Pokusaj ponovno.\n");
+			break;
+		}
+		}
 	}
 
 	return 0;
