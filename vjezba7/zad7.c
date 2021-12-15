@@ -19,7 +19,7 @@ int Pop(double* destination, Position S);
 
 int main()
 {
-	int i = 1;
+	int odabir=0;
 	Position ME;
 	ME = (Position)malloc(sizeof( struct Cvor));
 	ME->name = "C:";
@@ -28,20 +28,35 @@ int main()
 
 	Position current = ME;
 
-	char* ulaz, buffer;
-	ulaz = (char*)malloc(sizeof(char));
-	scanf("%[\n]s", ulaz);
+	printf("Odaberite:\n1-md\n2-cd dir\n3-cd..\n4-dir\n5-izlaz\n");
+	if (!scanf("%d", &odabir)) printf("Pogresan unos!\n");
 
-	while (i)
+	switch (oda)
 	{
-		if (strcmp(ulaz, "md") == 0) {
-
-		}
-		else if (strcmp(ulaz, "cd dir") == 0)
-		else if (strcmp(ulaz, "cd..") == 0)
-		else if (strcmp(ulaz, "dir") == 0)
-		else if (strcmp(ulaz, "exit") == 0) i = 0;
-		else
+	case 1:
+	{
+		break;
+	}
+	case 2:
+	{
+		break;
+	}
+	case 3:
+	{
+		break;
+	}
+	case 4:
+	{
+		break;
+	}
+	case 5:
+	{
+		return 0;
+	}
+	default:
+	{
+		break;
+	}
 	}
 
 	return 0;
