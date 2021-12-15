@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include <string.h>
 #include<ctype.h>
+#define MAX_SIZE 1024
 
 typedef struct Cvor* Position;
 typedef struct Cvor {
@@ -20,6 +21,8 @@ int Pop(double* destination, Position S);
 int main()
 {
 	int odabir=0;
+	char naziv[MAX_SIZE] = { 0 };
+
 	Position ME;
 	ME = (Position)malloc(sizeof( struct Cvor));
 	ME->name = "C:";
@@ -31,14 +34,19 @@ int main()
 	printf("Odaberite:\n1-md\n2-cd dir\n3-cd..\n4-dir\n5-izlaz\n");
 	if (!scanf("%d", &odabir)) printf("Pogresan unos!\n");
 
-	switch (oda)
+	switch (odabir)
 	{
 	case 1:
 	{
+		printf("Unesi naziv novog direktorija: ");
+		scanf("%s", naziv);
+		Position NoviElement(naziv);
+		current->child = Insert(current, NoviElement);
 		break;
 	}
 	case 2:
 	{
+
 		break;
 	}
 	case 3:
