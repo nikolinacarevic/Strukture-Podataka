@@ -17,9 +17,16 @@ int Ispis(Stablo S);
 
 int main()
 {
+	int niz[] = { 2, 5, 7, 8, 11, 1, 4, 2, 3, 7 };
 	time_t t;
-	int odabir, br;
+	int i=0, odabir=0, br=0;
 	Stablo B = NULL;
+
+	for (i = 0; i < 10; i++)
+	{
+		Stablo Element = StvoriNoviElement(niz[i]);
+		B = Insert(B, Element);
+	}
 
 	srand((unsigned)time(&t));
 
