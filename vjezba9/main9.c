@@ -12,7 +12,7 @@ struct Cvor {
 
 Stablo Insert(Stablo trenutni, Stablo NoviEl);
 Stablo StvoriNoviElement(int x);
-int Zamjeni(Stablo trenutni);
+int Zamjeni(Stablo trenutni, int suma);
 int Ispis(Stablo S);
 
 int main()
@@ -21,6 +21,7 @@ int main()
 	time_t t;
 	int i=0, odabir=0, br=0;
 	Stablo B = NULL;
+	int suma = 0;
 
 	for (i = 0; i < 10; i++)
 	{
@@ -50,7 +51,7 @@ int main()
 			}
 			case 2:
 			{
-			
+				Zamjeni(B, suma);
 				break;
 			}
 			case 3:
@@ -104,17 +105,20 @@ Stablo StvoriNoviElement(int x)
 
 }
 
-int Zamjeni(Stablo trenutni)
+int Zamjeni(Stablo trenutni, int suma)
 {
+	if (trenutni == NULL) return 0;
+	suma = trenutni->broj;
+	trenutni->broj = Zamjeni(trenutni->lijevo, suma) + Zamjeni(trenutni->desno, suma);
 
-	return 0;
+	return suma + trenutni->broj;
 }
 
 int Ispis(Stablo S)
 {
 	if (S == NULL) return 0;
-	Inorder(S->lijevo);
+	Ispis(S->lijevo);
 	printf("%d ", S->broj);
-	Inorder(S->desno);
+	Ispis(S->desno);
 	return 0;
 }
