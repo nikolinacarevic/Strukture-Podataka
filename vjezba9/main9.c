@@ -10,10 +10,21 @@ struct Cvor {
 	Stablo desno;
 };
 
+typedef struct _Cvor* Pozicija;
+struct _Cvor {
+	int broj;
+	Pozicija next;
+};
+
 Stablo Insert(Stablo trenutni, Stablo NoviEl);
 Stablo StvoriNoviElement(int x);
 int Zamjeni(Stablo trenutni, int suma);
 int Ispis(Stablo S);
+int RandomUnos(Stablo B);
+int IspisUDatoteku(Stablo B);
+int IzStablaUListu(Stablo B, Pozicija Lista);
+int UnosUListu(Pozicija P, int br);
+Pozicija StvoriElementListe(Pozicija P, int br);
 
 int main()
 {
@@ -33,7 +44,7 @@ int main()
 
 	while (1)
 	{
-		printf("\nOdaberite:\n1-Unos\n2-Zamjena\n3-Random\n4-Ispis u datoteku\n5-Kraj\n");
+		printf("\nOdaberite:\n1-Unos novog elementa\n2-Zamjena//SUMA\n3-Random unos novog elementa\n4-Ispis u datoteku\n5-Kraj\n");
 		if (!scanf("%d", &odabir)) printf("Greska!");
 		else
 		{
@@ -56,12 +67,12 @@ int main()
 			}
 			case 3:
 			{
-				
+				RandomUnos(B);
 				break;
 			}
 			case 4:
 			{
-				
+				IspisUDatoteku(B);
 				break;
 			}
 			case 5:
@@ -120,5 +131,81 @@ int Ispis(Stablo S)
 	Ispis(S->lijevo);
 	printf("%d ", S->broj);
 	Ispis(S->desno);
+
 	return 0;
+}
+
+int RandomUnos(Stablo B)
+{
+	Stablo Novi = NULL;
+	int i=0, br=0;
+
+	for (i = 0; i < 10; i++)
+	{
+		br = (rand() % (90 - 10 + 1)) + 10;
+		Novi = StvoriNoviElement(br);
+		B = Insert(B, Novi);
+	}
+
+	return 0;
+}
+
+int IspisUDatoteku(Stablo B)
+{
+	FILE* dat=NULL;
+	Pozicija Lista = NULL;
+	
+	IzStablaUListu(B,Lista);
+
+	dat = fopen("ispis.txt", "w");
+	if (!dat)
+	{
+		perror("Pogreška kod otvaranja datoteke!\n");
+		return 0;
+	}
+
+	while (Lista->next != NULL)
+	{
+		fprintf(dat, "%d ", Lista->broj);
+		Lista = Lista->next;
+	}
+
+	fclose(dat);
+	
+	return 0;
+}
+
+int IzStablaUListu(Stablo B, Pozicija Lista)
+{
+	if (B == NULL) return 0;
+	IzStablaUListu(B->desno, Lista);
+	UnosUListu(Lista, B->broj);
+	IzStablaUListu(B->lijevo, Lista);
+
+	return 0;
+}
+
+int UnosUListu(Pozicija P, int br)
+{
+	Pozicija NoviElement = StvoriElementListe(P, br);
+	NoviElement->next = P->next;
+	P->next = NoviElement;
+
+	return 0;
+}
+
+Pozicija StvoriElementListe(Pozicija P, int br)
+{
+	Pozicija Novi = NULL;
+	Novi = (Pozicija)malloc(sizeof(struct _Cvor));
+
+	if (Novi == NULL)
+	{
+		perror("Greška!\n");
+		return NULL;
+	}
+	Novi->broj = br;
+	Novi->next = NULL;
+
+	return Novi;
 }
