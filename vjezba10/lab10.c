@@ -78,7 +78,7 @@ int UnosUListu(Pozicija P, int br)
 	return 0;
 }
 
-Pozicija StvoriElementListe(Pozicija P, char ime[MAX_LINE])
+Pozicija StvoriElementListe(Pozicija P, char* ime)
 {
 	Pozicija Novi = NULL;
 	Novi = (Pozicija)malloc(sizeof(struct _Cvor));
@@ -88,7 +88,8 @@ Pozicija StvoriElementListe(Pozicija P, char ime[MAX_LINE])
 		perror("Greška!\n");
 		return NULL;
 	}
-	Novi->ime = ime;
+
+	strcpy_s(Novi->ime, sizeof(Novi->ime), ime);
 	Novi->next = NULL;
 
 	return Novi;
