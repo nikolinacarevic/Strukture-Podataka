@@ -23,13 +23,15 @@ typedef struct _Cvor {
 };
 
 Stablo Insert(Stablo trenutni, Stablo NoviEl);
-Stablo StvoriNoviElement(int x);
+Stablo StvoriNoviElement(char* ime, int broj);
 int IzStablaUListu(Stablo B, Pozicija Lista);
 int Unos(Pozicija P, char* drzava, char* dat);
 Pozicija StvoriElementListe(Pozicija P, char* ime);
 int Pronadi(char* drzava, int brojStan, Pozicija P);
 int ProcitajIzDat(Pozicija P);
 int Ispis(Pozicija P);
+int DodajUStablo(Pozicija Head, char* imeDat);
+int IspisGrada(int br, Stablo S);
 
 int main()
 {
@@ -59,14 +61,17 @@ Stablo Insert(Stablo trenutni, Stablo NoviEl)
 	return trenutni;
 }
 
-Stablo StvoriNoviElement(int x)
+Stablo StvoriNoviElement(char *ime, int broj)
 {
 	Stablo S;
+
 	S = (Stablo)malloc(sizeof(struct Cvor));
 	if (S == NULL) perror("Greska kod alociranja memorije.\n");
+
 	else
 	{
-		S->broj = x;
+		strcpy_s(S->ime, sizeof(S->ime), ime);
+		S->broj = broj;
 		S->desno = NULL;
 		S->lijevo = NULL;
 		return S;
@@ -87,9 +92,11 @@ int IzStablaUListu(Stablo B, Pozicija Lista)
 
 int Unos(Pozicija P, char *drzava, char*dat)
 {
-	Pozicija NoviElement = StvoriElementListe(P, br);
+	Pozicija NoviElement = StvoriElementListe(P, drzava);
 	NoviElement->next = P->next;
 	P->next = NoviElement;
+
+	DodajUStablo(NoviElement, dat);
 
 	return 0;
 }
@@ -113,6 +120,18 @@ Pozicija StvoriElementListe(Pozicija P, char* ime)
 
 int Pronadi(char* drzava, int brojStan, Pozicija P)
 {
+	Pozicija temp = P->next;
+
+	while (temp)
+	{
+		if (strcmp(drzava, temp->ime) == 0)
+			break;
+		temp = temp->next;
+	}
+
+	Stablo tren = temp->root;
+
+	IspisGrada(brojStan, tren);
 
 	return 0;
 }
@@ -144,6 +163,51 @@ int ProcitajIzDat(Pozicija P)
 
 int Ispis(Pozicija P)
 {
+	Pozicija temp = P->next;
+
+	while (temp)
+	{
+		printf(" %s", temp->ime);
+		IspisStabla(temp->root);
+		temp = temp->next;
+
+	}
+
+	return 0;
+}
+
+int DodajUStablo(Pozicija Head, char* imeDat)
+{
+	Stablo H = NULL;
+	FILE* dat = NULL;
+	int br = 0;
+	char ime[MAX_LINE];
+	Stablo Grad = NULL;
+
+	dat = fopen(imeDat, "r");
+	fscanf(dat, " %s %d", ime, &br);
+
+	Head->root = H;
+	
+	Grad = StvoriNoviElement(ime, br);
+	H = Insert(Grad, H);
+
+	return 0;
+}
+
+int IspisGrada(int br, Stablo S)
+{
+	if (!S)
+		return 1;
+
+	else if (br < S->broj)
+	{
+		printf(" %s", S->ime);
+		PrintEl(br, S->desno);
+	}
+
+	else
+		PrintEl(br, S->lijevo);
 
 	return 0;
 }
