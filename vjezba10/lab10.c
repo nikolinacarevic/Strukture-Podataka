@@ -27,9 +27,25 @@ Stablo StvoriNoviElement(int x);
 int IzStablaUListu(Stablo B, Pozicija Lista);
 int UnosUListu(Pozicija P, int br);
 Pozicija StvoriElementListe(Pozicija P, int br);
+int Pronadi(char* drzava, int brojStan, Pozicija P);
+int ProcitajIzDat(Pozicija P);
+int Ispis(Pozicija P);
 
 int main()
 {
+	struct Cvor H = { .ime = " ", .root = NULL, .next = NULL };
+	Pozicija P = &H;
+	int odabir = 0;
+	char drzava[MAX_LINE] = { 0 };
+	Stablo S = NULL;
+
+	ProcitajIzDat(P);
+	Ispis(P->next);
+
+	printf("Upisi ime drzave i broj stanovnika (ispisuju se gradovi s vecim brojem stanovnika od toga): ");
+	scanf(" %s %d", drzava, &odabir);
+	
+	Pronadi(drzava, odabir, P);
 
 	return 0;
 }
@@ -93,4 +109,28 @@ Pozicija StvoriElementListe(Pozicija P, char* ime)
 	Novi->next = NULL;
 
 	return Novi;
+}
+
+Pozicija StvoriElementListe(Pozicija P, int br)
+{
+
+	return 0;
+}
+
+int Pronadi(char* drzava, int brojStan, Pozicija P)
+{
+
+	return 0;
+}
+
+int ProcitajIzDat(Pozicija P)
+{
+
+	return 0;
+}
+
+int Ispis(Pozicija P)
+{
+
+	return 0;
 }
