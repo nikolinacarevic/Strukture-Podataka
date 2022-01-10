@@ -25,8 +25,8 @@ typedef struct _Cvor {
 Stablo Insert(Stablo trenutni, Stablo NoviEl);
 Stablo StvoriNoviElement(int x);
 int IzStablaUListu(Stablo B, Pozicija Lista);
-int UnosUListu(Pozicija P, int br);
-Pozicija StvoriElementListe(Pozicija P, int br);
+int Unos(Pozicija P, char* drzava, char* dat);
+Pozicija StvoriElementListe(Pozicija P, char* ime);
 int Pronadi(char* drzava, int brojStan, Pozicija P);
 int ProcitajIzDat(Pozicija P);
 int Ispis(Pozicija P);
@@ -85,7 +85,7 @@ int IzStablaUListu(Stablo B, Pozicija Lista)
 	return 0;
 }
 
-int UnosUListu(Pozicija P, int br)
+int Unos(Pozicija P, char *drzava, char*dat)
 {
 	Pozicija NoviElement = StvoriElementListe(P, br);
 	NoviElement->next = P->next;
@@ -111,12 +111,6 @@ Pozicija StvoriElementListe(Pozicija P, char* ime)
 	return Novi;
 }
 
-Pozicija StvoriElementListe(Pozicija P, int br)
-{
-
-	return 0;
-}
-
 int Pronadi(char* drzava, int brojStan, Pozicija P)
 {
 
@@ -125,6 +119,25 @@ int Pronadi(char* drzava, int brojStan, Pozicija P)
 
 int ProcitajIzDat(Pozicija P)
 {
+	FILE* dat = NULL;
+	char tIme[MAX_LINE] = { 0 };
+	char NazivDat[MAX_LINE] = { 0 };
+
+	dat = fopen("drzave.txt", "r");
+
+	if (!dat)
+	{
+		printf("Pogreška pri otvaranju datoteke!\n");
+		return -1;
+	}
+
+	while (dat != feof)
+	{
+		scanf("%s %s", tIme, NazivDat);
+		Unos(P,tIme, NazivDat);
+	}
+
+	fclose(dat);
 
 	return 0;
 }
