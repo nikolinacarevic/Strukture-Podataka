@@ -27,7 +27,8 @@ typedef struct _Cvor {
 
 typedef struct _HashTablica
 {
-	Pozicija tablica[HASH];
+	int velicina;
+	Pozicija tablica;
 }_Hash;
 
 Stablo Insert(Stablo trenutni, Stablo NoviEl);
@@ -42,11 +43,12 @@ int DodajUStablo(Pozicija Head, char* imeDat);
 int IspisGrada(int br, Stablo S);
 int UnosUListu(Pozicija P, int br);
 int UnosIza(Pozicija P, Pozicija Novi);
-int Sortiranje(Stablo Prvi, Stablo Novi);
+int Sortiranje(Pozicija Prvi, Pozicija Novi);
 int UsporediGradove(Stablo S1, Stablo S2);
 int IspisHashTablice(HashTablicaP P);
 HashTablicaP InicijalizacijaTablice(int velicina);
-int UnosUHashTablicu(hashTablicaP T, char* drzava, char* dat);
+int UnosUHashTablicu(HashTablicaP T, char* drzava, char* dat);
+int HashKljuc(char* K);
 
 int main()
 {
@@ -64,6 +66,19 @@ int main()
 	if(!scanf(" %s %d", drzava, &odabir)) printf("Greska kod unosa!\n");
 
 	Pronadi(drzava, odabir, P);
+
+	//11zad
+
+	char ime[MAX_LINE];
+	int br = 0;
+	Pozicija P;
+	HashTablicaP  H = NULL;
+
+	H = InicijalizacijaTablice(11);
+
+	char datoteka[] = "drzave.txt";
+	Unosizdatd(H, datoteka);
+	IspisHashTablice(H);
 
 	return 0;
 }
@@ -115,7 +130,7 @@ int UnosIzDatoteke(HashTablicaP P, char* drzava)
 	struct Cvor temp = { .ime = "", .root = NULL, .next = NULL };
 	Pozicija Novi = &temp;
 
-	dat = fopen(drzave.txt, "r");
+	dat = fopen(drzava, "r");
 	if (!dat)
 		return -1;
 
@@ -249,36 +264,119 @@ int UnosUListu(Pozicija P, int br)
 
 int UnosIza(Pozicija P, Pozicija Novi)
 {
+	Novi->next = P->next;
+	P->next = Novi;
 
 	return 0;
 }
 
-int Sortiranje(Stablo Prvi, Stablo Novi)
+int Sortiranje(Pozicija Prvi, Pozicija Novi)
 {
+	while (Prvi->next != NULL && strcmp(Prvi->next->ime, Novi->ime) < 0)
+		Prvi = Prvi->next;
+
+	UnosIza(Prvi, Novi);
 
 	return 0;
 }
 
 int UsporediGradove(Stablo S1, Stablo S2)
 {
+	if (strcmp(S1->ime, S2->ime) > 0) 
+	{
+		S1->lijevo = insert(S1->lijevo, S2);
+	}
+
+	if (strcmp(S1->ime, S2->ime) < 0) 
+	{
+		S1->desno = insert(S1->desno, S2);
+	}
 
 	return 0;
 }
 
 int IspisHashTablice(HashTablicaP P)
 {
+	Pozicija Q = NULL;
+
+	for (int i = 0; i < P->velicina; i++) 
+	{
+		Q = P->tablica;
+		while (Q != NULL) 
+		{
+			printf("Drzava: %s\n", Q->ime);
+			Ispis(Q->root);
+			Q = Q->next;
+		}
+
+	}
 
 	return 0;
 }
 
 HashTablicaP InicijalizacijaTablice(int velicina)
 {
+	HashTablicaP T;
 
+	T = (HashTablicaP)malloc(sizeof(struct _HashTablica));
+
+	if (T = NULL) 
+	{
+		printf("Greska!\n");
+		return 0;
+	}
+
+	T->velicina = velicina;
+	T->tablica = (Pozicija*)malloc(sizeof(Pozicija) * T->velicina);
+
+	if (T->tablica == NULL) 
+	{
+		printf("Greska!\n");
+		return 0;
+	}
+
+	for (int i = 0; i < velicina; i++)
+		T->tablica[i] = NULL;
+
+	return T;
+}
+
+int UnosUHashTablicu(HashTablicaP T, char* drzava, char* ime)
+{
+	Pozicija Novi = NULL, trenutni = NULL;
+	int kljuc = HashKljuc(drzava);
+
+	Novi = StvoriNoviElement(drzava,0);
+
+	if (Novi == NULL)
+		return -1;
+
+	Unos(Novi, ime);
+
+	if (!T->tablica[kljuc])
+		T->tablica[kljuc] = Novi;
+	else 
+	{
+		trenutni = T->tablica[kljuc];
+		while (trenutni->next != NULL && strcmp(trenutni->next->ime, drzava) < 0)
+			trenutni = trenutni->next;
+		Novi->next = trenutni->next;
+		trenutni->next = Novi;
+	}
 	return 0;
 }
 
-int UnosUHashTablicu(hashTablicaP T, char* drzava, char* dat)
+int HashKljuc(char* K)
 {
+	int Hash = 0, brojac=0;
 
-	return 0;
+	printf("\n Hash %s=  ", K);
+
+	while (brojac != 5) {
+		printf("+%d", *K);
+		Hash += *K++;
+		brojac++;
+	}
+
+	return Hash % 11;
 }
